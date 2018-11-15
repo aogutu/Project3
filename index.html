@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+          .grey{background-color: grey}
+          .white{background-color:white}
+      </style>
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                </div>
+            </div>
+        </div>
+            
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+                   <button data-mdc-auto-init="MDCIconButtonToggle" id="add-to-favorites"
+                   class="mdc-icon-button"
+                   aria-label="Add to favorites"
+                   aria-hidden="true"
+                   aria-pressed="false">
+                   <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
+                   <i class="material-icons mdc-icon-button__icon">favorite_border</i>
+                    </button>
+  
+  <script>
+    $(document).ready(function(){
+          $.get("https://data.cityofchicago.org/resource/psqp-6rmg.json", function(response) {
+                console.log(response);
+                var row = $("<div>").addClass("row");
+
+              
+          //var toggleButton = new mdc.iconButton.MDCIconButtonToggle(document.getElementById('add-to-favorites'));
+              
+              //loop through each response
+              $.each(response , function(key,value){
+                  //print the key and value
+                  console.log(key,value)
+                  var cell = $("<div>");
+                  cell.addClass("col-sm");
+                  cell.html(toggleButton + "<br>" + value.name_ + "<br>" + value.address + "<br>" + "<br>");
+                  row.append(cell);
+                  //console.log(value.name);
+                  if (row.find("div").length == 1) {
+                      $(".container").append(row);
+                      row = $("<div>").addClass("row");
+                    } 
+                 });
+              $(document).ready(function (){
+                      $('.row').click(function(){
+                        if($(this).toggleClass('grey')){
+                           //$(this).toggleClass('green');
+                        }
+                      });
+                  });
+              
+              }
+            )});
+          //window.mdc.autoInit();
+        </script>
+    </body>
+</html>
